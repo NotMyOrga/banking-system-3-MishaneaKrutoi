@@ -3,16 +3,15 @@ package price_comparison_website;
 import shop.OnlineShop;
 import shop.ShopItem;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PriceComparisonWebsite {
     private final List<OnlineShop> onlineShops;
     private final HashMap<OnlineShop, List<Integer>> shopRatings = new HashMap<>();
 
     public PriceComparisonWebsite(List<OnlineShop> onlineShops) {
-        this.onlineShops = onlineShops;
+        this.onlineShops = new ArrayList<>(onlineShops);
     }
 
     public void addShop(OnlineShop shop) {
@@ -24,27 +23,58 @@ public class PriceComparisonWebsite {
             throw new IllegalArgumentException("Rating must be between 1 and 5.");
         }
 
-        if (!shopRatings.containsKey(shop)) {
-            shopRatings.put(shop, new ArrayList<>());
-        }
-        shopRatings.get(shop).add(rating);
+        shopRatings.computeIfAbsent(shop, k -> new ArrayList<>()).add(rating);
     }
 
     public OnlineShop findCheapestOffer(String itemName) {
-        // TODO implement logic to find the online shop that offers the cheapest price for the given item name
-        // case-insensitive contains search
-        return null;
+        String lowerItemName = itemName.toLowerCase();
+        OnlineShop cheapestShop = null;
+        double lowestPrice = Double.MAX_VALUE;
+
+        for (OnlineShop shop : onlineShops) {
+            for (ShopItem item : shop.getItems()) {
+                if (item.getName().toLowerCase().contains(lowerItemName)) {
+                    if (item.getPrice() < lowestPrice) {
+                        lowestPrice = item.getPrice();
+                        cheapestShop = shop;
+                    }
+                }
+            }
+        }
+
+        return cheapestShop;
     }
 
     public OnlineShop findOfferWithBestRatedShop(String itemName) {
-        // TODO implement logic to find the online shop with the best rating that offers the given item name
-        // case-insensitive contains search
-        return null;
+        String lowerItemName = itemName.toLowerCase();
+        OnlineShop bestShop = null;
+        double highestAvgRating = -1;
+
+        for (OnlineShop shop : onlineShops) {
+            boolean hasItem = shop.getItems().stream()
+                .anyMatch(item -> item.getName().toLowerCase().contains(lowerItemName));
+            if (!hasItem) continue;
+
+            List<Integer> ratings = shopRatings.getOrDefault(shop, List.of());
+            if (ratings.isEmpty()) continue;
+
+            double avg = ratings.stream().mapToInt(i -> i).average().orElse(0.0);
+            if (avg > highestAvgRating) {
+                highestAvgRating = avg;
+                bestShop = shop;
+            }
+        }
+
+        return bestShop;
     }
 
     public List<ShopItem> findSortedItemsInAllShops(String itemName) {
-        // TODO implement logic to find all items with the given name in all shops and return them sorted by price ascending
-        // case-insensitive contains search
-        return new ArrayList<>();
+        String lowerItemName = itemName.toLowerCase();
+        List<ShopItem> result = new ArrayList<>();
+
+        //faulty
+
+        result.sort(Comparator.comparingDouble(ShopItem::getPrice));
+        return result;
     }
 }
