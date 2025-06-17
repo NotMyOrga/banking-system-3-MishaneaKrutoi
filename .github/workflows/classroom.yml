@@ -1,0 +1,195 @@
+name: Autograding Tests
+'on':
+  - push
+  - repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Grant execute permission for Gradle
+        run: chmod +x ./gradlew
+
+      - name: Test main flow
+        id: test-main-flow
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Test main flow
+          command: './gradlew test --tests "bank.BankTest.testMainFlow"'
+          timeout: 1
+          max-score: 5
+
+      - name: Register customer with correct balance
+        id: register-customer
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Register customer with correct balance
+          command: './gradlew test --tests "bank.BankTest.testRegisterCustomerStoresAccountWithCorrectBalance"'
+          timeout: 1
+          max-score: 5
+
+      - name: Deposit increases balance
+        id: deposit-increases-balance
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Deposit increases balance
+          command: './gradlew test --tests "bank.BankTest.testDepositIncreasesBalance"'
+          timeout: 1
+          max-score: 5
+
+      - name: Withdraw with enough money
+        id: withdraw-enough-money
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Withdraw with enough money
+          command: './gradlew test --tests "bank.BankTest.testWithdrawDecreasesBalanceIfEnoughMoney"'
+          timeout: 1
+          max-score: 5
+
+      - name: Withdraw fails if not enough money
+        id: withdraw-fails
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Withdraw fails if not enough money
+          command: './gradlew test --tests "bank.BankTest.testWithdrawFailsIfNotEnoughMoney"'
+          timeout: 1
+          max-score: 5
+
+      - name: Transfer moves money between accounts
+        id: transfer-money
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Transfer moves money between accounts
+          command: './gradlew test --tests "bank.BankTest.testTransferMovesMoneyBetweenAccounts"'
+          timeout: 1
+          max-score: 5
+
+      - name: Transfer fails if insufficient funds
+        id: transfer-fails
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Transfer fails if insufficient funds
+          command: './gradlew test --tests "bank.BankTest.testTransferFailsIfInsufficientFunds"'
+          timeout: 1
+          max-score: 5
+
+      - name: Online shop flow
+        id: shop-flow
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Online shop flow
+          command: './gradlew test --tests "shop.OnlineShopTest.testOnlineShopFlow"'
+          timeout: 2
+          max-score: 5
+
+      - name: Add to cart and place order
+        id: shop-add-to-cart
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Add to cart and place order
+          command: './gradlew test --tests "shop.OnlineShopTest.testAddToCartAndPlaceOrder"'
+          timeout: 2
+          max-score: 5
+
+      - name: Refund item
+        id: shop-refund
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Refund item
+          command: './gradlew test --tests "shop.OnlineShopTest.testRefundItem"'
+          timeout: 2
+          max-score: 5
+
+      - name: Order fails if not enough money
+        id: shop-order-fails
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Order fails if not enough money
+          command: './gradlew test --tests "shop.OnlineShopTest.testPlaceOrderFailsIfNotEnoughMoney"'
+          timeout: 2
+          max-score: 5
+
+      - name: Add to cart fails if item not in shop
+        id: shop-invalid-item
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Add to cart fails if item not in shop
+          command: './gradlew test --tests "shop.OnlineShopTest.testAddToCartFailsIfItemNotInShop"'
+          timeout: 2
+          max-score: 5
+
+      - name: Refund fails if item not bought
+        id: shop-refund-invalid
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Refund fails if item not bought
+          command: './gradlew test --tests "shop.OnlineShopTest.testRefundFailsIfItemNotPurchasedByBuyer"'
+          timeout: 2
+          max-score: 5
+
+      - name: Find cheapest offer
+        id: price-find-cheapest
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Find cheapest offer
+          command: './gradlew test --tests "price_comparison_website.PriceComparisonWebsiteTest.testFindCheapestOffer"'
+          timeout: 2
+          max-score: 5
+
+      - name: Find best rated shop
+        id: price-best-rated
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Find best rated shop
+          command: './gradlew test --tests "price_comparison_website.PriceComparisonWebsiteTest.testFindOfferWithBestRatedShop"'
+          timeout: 2
+          max-score: 5
+
+      - name: Find sorted items in all shops
+        id: price-sorted-items
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Find sorted items in all shops
+          command: './gradlew test --tests "price_comparison_website.PriceComparisonWebsiteTest.testFindSortedItemsInAllShops"'
+          timeout: 2
+          max-score: 5
+
+      - name: Add invalid rating throws
+        id: price-invalid-rating
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Add invalid rating throws
+          command: './gradlew test --tests "price_comparison_website.PriceComparisonWebsiteTest.testAddInvalidRatingThrows"'
+          timeout: 2
+          max-score: 5
+
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          TEST-MAIN-FLOW_RESULTS: "${{steps.test-main-flow.outputs.result}}"
+          REGISTER-CUSTOMER_RESULTS: "${{steps.register-customer.outputs.result}}"
+          DEPOSIT-INCREASES-BALANCE_RESULTS: "${{steps.deposit-increases-balance.outputs.result}}"
+          WITHDRAW-ENOUGH-MONEY_RESULTS: "${{steps.withdraw-enough-money.outputs.result}}"
+          WITHDRAW-FAILS_RESULTS: "${{steps.withdraw-fails.outputs.result}}"
+          TRANSFER-MONEY_RESULTS: "${{steps.transfer-money.outputs.result}}"
+          TRANSFER-FAILS_RESULTS: "${{steps.transfer-fails.outputs.result}}"
+          SHOP-FLOW_RESULTS: "${{steps.shop-flow.outputs.result}}"
+          SHOP-ADD-TO-CART_RESULTS: "${{steps.shop-add-to-cart.outputs.result}}"
+          SHOP-REFUND_RESULTS: "${{steps.shop-refund.outputs.result}}"
+          SHOP-ORDER-FAILS_RESULTS: "${{steps.shop-order-fails.outputs.result}}"
+          SHOP-INVALID-ITEM_RESULTS: "${{steps.shop-invalid-item.outputs.result}}"
+          SHOP-REFUND-INVALID_RESULTS: "${{steps.shop-refund-invalid.outputs.result}}"
+          PRICE-FIND-CHEAPEST_RESULTS: "${{steps.price-find-cheapest.outputs.result}}"
+          PRICE-BEST-RATED_RESULTS: "${{steps.price-best-rated.outputs.result}}"
+          PRICE-SORTED-ITEMS_RESULTS: "${{steps.price-sorted-items.outputs.result}}"
+          PRICE-INVALID-RATING_RESULTS: "${{steps.price-invalid-rating.outputs.result}}"
+        with:
+          runners: test-main-flow,register-customer,deposit-increases-balance,withdraw-enough-money,withdraw-fails,transfer-money,transfer-fails,shop-flow,shop-add-to-cart,shop-refund,shop-order-fails,shop-invalid-item,shop-refund-invalid,price-find-cheapest,price-best-rated,price-sorted-items,price-invalid-rating
