@@ -32,7 +32,7 @@ public class PriceComparisonWebsite {
         double lowestPrice = Double.MAX_VALUE;
 
         for (OnlineShop shop : onlineShops) {
-            for (ShopItem item : shop.getItems()) {
+            for (ShopItem item : shop.getAvailableItems()) {
                 if (item.getName().toLowerCase().contains(lowerItemName)) {
                     if (item.getPrice() < lowestPrice) {
                         lowestPrice = item.getPrice();
@@ -51,7 +51,7 @@ public class PriceComparisonWebsite {
         double highestAvgRating = -1;
 
         for (OnlineShop shop : onlineShops) {
-            boolean hasItem = shop.getItems().stream()
+            boolean hasItem = shop.getAvailableItems().stream()
                 .anyMatch(item -> item.getName().toLowerCase().contains(lowerItemName));
             if (!hasItem) continue;
 
