@@ -22,7 +22,7 @@ jobs:
         id: test-main-flow
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "BankTest: Test main flow"
+          test-name: BankTest - Test main flow
           command: './gradlew test --tests "bank.BankTest.testMainFlow"'
           timeout: 1
           max-score: 5
@@ -31,7 +31,7 @@ jobs:
         id: register-customer
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "BankTest: Register customer with correct balance"
+          test-name: BankTest - Register customer with correct balance
           command: './gradlew test --tests "bank.BankTest.testRegisterCustomerStoresAccountWithCorrectBalance"'
           timeout: 1
           max-score: 5
@@ -40,7 +40,7 @@ jobs:
         id: deposit-increases-balance
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "BankTest: Deposit increases balance"
+          test-name: BankTest - Deposit increases balance
           command: './gradlew test --tests "bank.BankTest.testDepositIncreasesBalance"'
           timeout: 1
           max-score: 5
@@ -49,7 +49,7 @@ jobs:
         id: withdraw-enough-money
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "BankTest: Withdraw with enough money"
+          test-name: BankTest - Withdraw with enough money
           command: './gradlew test --tests "bank.BankTest.testWithdrawDecreasesBalanceIfEnoughMoney"'
           timeout: 1
           max-score: 5
@@ -58,7 +58,7 @@ jobs:
         id: withdraw-fails
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "BankTest: Withdraw fails if not enough money"
+          test-name: BankTest - Withdraw fails if not enough money
           command: './gradlew test --tests "bank.BankTest.testWithdrawFailsIfNotEnoughMoney"'
           timeout: 1
           max-score: 5
@@ -67,7 +67,7 @@ jobs:
         id: transfer-money
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "BankTest: Transfer moves money between accounts"
+          test-name: BankTest - Transfer moves money between accounts
           command: './gradlew test --tests "bank.BankTest.testTransferMovesMoneyBetweenAccounts"'
           timeout: 1
           max-score: 5
@@ -76,7 +76,7 @@ jobs:
         id: transfer-fails
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "BankTest: Transfer fails if insufficient funds"
+          test-name: BankTest - Transfer fails if insufficient funds
           command: './gradlew test --tests "bank.BankTest.testTransferFailsIfInsufficientFunds"'
           timeout: 1
           max-score: 5
@@ -85,7 +85,7 @@ jobs:
         id: shop-flow
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "OnlineShopTest: Online shop flow"
+          test-name: OnlineShopTest - Online shop flow
           command: './gradlew test --tests "shop.OnlineShopTest.testOnlineShopFlow"'
           timeout: 2
           max-score: 5
@@ -94,7 +94,7 @@ jobs:
         id: shop-add-to-cart
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "OnlineShopTest: Add to cart and place order"
+          test-name: OnlineShopTest - Add to cart and place order
           command: './gradlew test --tests "shop.OnlineShopTest.testAddToCartAndPlaceOrder"'
           timeout: 2
           max-score: 5
@@ -103,7 +103,7 @@ jobs:
         id: shop-refund
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "OnlineShopTest: Refund item"
+          test-name: OnlineShopTest - Refund item
           command: './gradlew test --tests "shop.OnlineShopTest.testRefundItem"'
           timeout: 2
           max-score: 5
@@ -112,7 +112,7 @@ jobs:
         id: shop-order-fails
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "OnlineShopTest: Order fails if not enough money"
+          test-name: OnlineShopTest - Order fails if not enough money
           command: './gradlew test --tests "shop.OnlineShopTest.testPlaceOrderFailsIfNotEnoughMoney"'
           timeout: 2
           max-score: 5
@@ -121,7 +121,7 @@ jobs:
         id: shop-invalid-item
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "OnlineShopTest: Add to cart fails if item not in shop"
+          test-name: OnlineShopTest - Add to cart fails if item not in shop
           command: './gradlew test --tests "shop.OnlineShopTest.testAddToCartFailsIfItemNotInShop"'
           timeout: 2
           max-score: 5
@@ -130,7 +130,7 @@ jobs:
         id: shop-refund-invalid
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "OnlineShopTest: Refund fails if item not bought"
+          test-name: OnlineShopTest - Refund fails if item not bought
           command: './gradlew test --tests "shop.OnlineShopTest.testRefundFailsIfItemNotPurchasedByBuyer"'
           timeout: 2
           max-score: 5
@@ -139,7 +139,7 @@ jobs:
         id: price-find-cheapest
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "PriceComparisonWebsiteTest: Find cheapest offer"
+          test-name: PriceComparisonWebsiteTest - Find cheapest offer
           command: './gradlew test --tests "price_comparison_website.PriceComparisonWebsiteTest.testFindCheapestOffer"'
           timeout: 2
           max-score: 5
@@ -148,7 +148,7 @@ jobs:
         id: price-best-rated
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "PriceComparisonWebsiteTest: Find best rated shop"
+          test-name: PriceComparisonWebsiteTest - Find best rated shop
           command: './gradlew test --tests "price_comparison_website.PriceComparisonWebsiteTest.testFindOfferWithBestRatedShop"'
           timeout: 2
           max-score: 5
@@ -157,7 +157,7 @@ jobs:
         id: price-sorted-items
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "PriceComparisonWebsiteTest: Find sorted items in all shops"
+          test-name: PriceComparisonWebsiteTest - Find sorted items in all shops
           command: './gradlew test --tests "price_comparison_website.PriceComparisonWebsiteTest.testFindSortedItemsInAllShops"'
           timeout: 2
           max-score: 5
@@ -166,7 +166,7 @@ jobs:
         id: price-invalid-rating
         uses: classroom-resources/autograding-command-grader@v1
         with:
-          test-name: "PriceComparisonWebsiteTest: Add invalid rating throws"
+          test-name: PriceComparisonWebsiteTest - Add invalid rating throws
           command: './gradlew test --tests "price_comparison_website.PriceComparisonWebsiteTest.testAddInvalidRatingThrows"'
           timeout: 2
           max-score: 5
