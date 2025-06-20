@@ -25,7 +25,3 @@ Each `OnlineShop` is initialized with the following items:
 - Sprite – 25€
 
 You can also add more items using `addItem(...)`.
-
-
-### Run command
-`gradle test` (or `./gradlew test`)
